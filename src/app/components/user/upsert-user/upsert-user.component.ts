@@ -6,6 +6,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import PasswordValidation from '../utils/password-validation';
 
 @Component({
   selector: 'app-upsert-user',
@@ -14,12 +15,12 @@ import {
 })
 export class UserComponent implements OnInit {
   form: FormGroup = new FormGroup({
+    id: new FormControl(''),
     fullname: new FormControl(''),
     username: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
-    acceptTerms: new FormControl(false),
   });
   submitted = false;
   get f(): { [key: string]: AbstractControl } {
@@ -52,7 +53,7 @@ export class UserComponent implements OnInit {
         acceptTerms: [false, Validators.requiredTrue],
       },
       {
-        validators: [PasswordVsalidation.match('password', 'confirmPassword')],
+        validators: [PasswordValidation.match('password', 'confirmPassword')],
       }
     );
   }
